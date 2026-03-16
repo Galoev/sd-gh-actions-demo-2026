@@ -7,6 +7,24 @@ on:
     branches: ["main"]
 
 jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+      
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      
+      - name: Install deps
+        run: pip install -r requirements.txt
+      
+      - name: Lint with flake8
+        run: flake8 . --exclude=.venv
+
   test:
     name: Test
     runs-on: ubuntu-latest
